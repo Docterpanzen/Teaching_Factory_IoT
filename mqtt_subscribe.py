@@ -1,11 +1,11 @@
 import paho.mqtt.client as mqtt
 import json
-import database_connection as dc
 import time
+import database_connection as dbc
 
-# ---- MQTT Einstellungen ----
+# ---- MQTT Settings ----
 connected = False
-client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
+client = mqtt.Client()
 broker_address = "158.180.44.197"
 port = 1883
 user = "bobm"
@@ -15,8 +15,14 @@ client.username_pw_set(username=user, password=password)
 
 def on_connect(client, userdata, flags, rc, properties=None):
     if rc == 0:
-        client.subscribe("iot1/teaching_factory_fast/recipe")
-        #client.subscribe("iot1/teaching_factory_fast/dispensers")
+        client.subscribe("iot1/teaching_factory/recipe")
+        client.subscribe("iot1/teaching_factory/scale/final_weight")
+        client.subscribe("iot1/teaching_factory/drop_oscillation")
+        client.subscribe("iot1/teaching_factory/ground_truth")
+        client.subscribe("iot1/teaching_factory/dispenser_red")
+        client.subscribe("iot1/teaching_factory/dispenser_blue")
+        client.subscribe("iot1/teaching_factory/dispenser_green")
+        client.subscribe("iot1/teaching_factory/temperature")
         print("Connected to broker")
         global connected
         connected = True
@@ -25,43 +31,98 @@ def on_connect(client, userdata, flags, rc, properties=None):
 
 def on_message(client, userdata, msg):
     try:
-        if msg.topic == "iot1/teaching_factory_fast/recipe":
-            received_message = json.loads(msg.payload.decode("utf-8"))
-            print(f"Recipe message received: {received_message}")
+        received_message = json.loads(msg.payload.decode("utf-8"))
 
+        if msg.topic == "iot1/teaching_factory/recipe":
             recipe_data = (
+                received_message["id"],
                 received_message["recipe"],
-                received_message["time"],
+                received_message["creation_date"],
                 received_message["color_levels_grams"]["red"],
                 received_message["color_levels_grams"]["blue"],
                 received_message["color_levels_grams"]["green"]
             )
-            print(f"Saving recipe: {recipe_data}")
-            dc.save_recipe(recipe_data)
+            dbc.save_recipe(recipe_data)
+            print("Recipe data saved to database")
 
-        elif msg.topic == "iot1/teaching_factory_fast/dispensers":
-            received_message = json.loads(msg.payload.decode("utf-8"))
-            print(f"Dispenser message received: {received_message}")
+        elif msg.topic == "iot1/teaching_factory/scale/final_weight":
+            final_weight_data = (
+                received_message["bottle"],
+                received_message["time"],
+                received_message["final_weight"]
+            )
+            dbc.save_final_weight(final_weight_data)
+            print("Final weight data saved to database")
 
-            dispenser_data = (
+        elif msg.topic == "iot1/teaching_factory/drop_oscillation":
+            drop_oscillation_data = (
+                received_message["bottle"],
+                json.dumps(received_message["drop_oscillation"])
+            )
+            dbc.save_drop_oscillation(drop_oscillation_data)
+            print("Drop oscillation data saved to database")
+
+        elif msg.topic == "iot1/teaching_factory/ground_truth":
+            ground_truth_data = (
+                received_message["bottle"],
+                received_message["is_cracked"]
+            )
+            dbc.save_ground_truth(ground_truth_data)
+            print("Ground truth data saved to database")
+
+        elif msg.topic == "iot1/teaching_factory/dispenser_red":
+            dispenser_red_data = (
                 received_message["dispenser"],
                 received_message["bottle"],
                 received_message["time"],
                 received_message["fill_level_grams"],
-                received_message["recipe"]
+                received_message["recipe"],
+                received_message["vibration-index"]
             )
-            print(f"Saving dispenser: {dispenser_data}")
-            dc.save_dispenser(dispenser_data)
+            dbc.save_dispenser_red(dispenser_red_data)
+            print("Dispenser red data saved to database")
+
+        elif msg.topic == "iot1/teaching_factory/dispenser_blue":
+            dispenser_blue_data = (
+                received_message["dispenser"],
+                received_message["bottle"],
+                received_message["time"],
+                received_message["fill_level_grams"],
+                received_message["recipe"],
+                received_message["vibration-index"]
+            )
+            dbc.save_dispenser_blue(dispenser_blue_data)
+            print("Dispenser blue data saved to database")
+
+        elif msg.topic == "iot1/teaching_factory/dispenser_green":
+            dispenser_green_data = (
+                received_message["dispenser"],
+                received_message["bottle"],
+                received_message["time"],
+                received_message["fill_level_grams"],
+                received_message["recipe"],
+                received_message["vibration-index"]
+            )
+            dbc.save_dispenser_green(dispenser_green_data)
+            print("Dispenser green data saved to database")
+
+        elif msg.topic == "iot1/teaching_factory/temperature":
+            temperature_data = (
+                received_message["dispenser"],
+                received_message["time"],
+                received_message["temperature_C"]
+            )
+            dbc.save_temperature(temperature_data)
+            print("Temperature data saved to database")
+
     except ValueError as e:
         print(f"Failed to parse message: {e}")
-
 
 client.on_connect = on_connect
 client.on_message = on_message
 
 client.connect(broker_address, port=port)
 client.loop_start()
-
 
 # Keep the script running
 try:
