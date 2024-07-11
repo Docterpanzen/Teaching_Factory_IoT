@@ -15,6 +15,8 @@ client.username_pw_set(username=user, password=password)
 
 def on_connect(client, userdata, flags, rc, properties=None):
     if rc == 0:
+        client.subscribe("iot1/teaching_factory_fast/recipe")
+        #client.subscribe("iot1/teaching_factory_fast/dispensers")
         print("Connected to broker")
         global connected
         connected = True
@@ -25,7 +27,7 @@ def on_message(client, userdata, msg):
     try:
         if msg.topic == "iot1/teaching_factory_fast/recipe":
             received_message = json.loads(msg.payload.decode("utf-8"))
-            print(f"Message received: {received_message}")
+            print(f"Recipe message received: {received_message}")
 
             recipe_data = (
                 received_message["recipe"],
@@ -36,8 +38,23 @@ def on_message(client, userdata, msg):
             )
             print(f"Saving recipe: {recipe_data}")
             dc.save_recipe(recipe_data)
+
+        elif msg.topic == "iot1/teaching_factory_fast/dispensers":
+            received_message = json.loads(msg.payload.decode("utf-8"))
+            print(f"Dispenser message received: {received_message}")
+
+            dispenser_data = (
+                received_message["dispenser"],
+                received_message["bottle"],
+                received_message["time"],
+                received_message["fill_level_grams"],
+                received_message["recipe"]
+            )
+            print(f"Saving dispenser: {dispenser_data}")
+            dc.save_dispenser(dispenser_data)
     except ValueError as e:
         print(f"Failed to parse message: {e}")
+
 
 client.on_connect = on_connect
 client.on_message = on_message
@@ -45,7 +62,6 @@ client.on_message = on_message
 client.connect(broker_address, port=port)
 client.loop_start()
 
-client.subscribe("iot1/teaching_factory_fast/recipe")
 
 # Keep the script running
 try:
