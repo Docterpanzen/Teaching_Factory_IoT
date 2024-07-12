@@ -1,7 +1,6 @@
 # Teaching Factory
 ![](images/Teaching_Factory.png)
 
-
 ## Table of Contents
 - [Overview](#overview)
 - [Installation](#installation)
@@ -15,7 +14,6 @@
   - [visualize.py](#visualizepy)
 - [Time Series Data Visualization](#time-series-data-visualization)
 - [Streamlit Application](#streamlit-application)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Overview
@@ -29,10 +27,9 @@ The Teaching Factory project is an IoT (Internet of Things) initiative aimed at 
 - *User Interface*: Command-line interface to facilitate user interactions.
 - *Data Visualization*: Scripts to plot and visualize data using Plotly.
 
-
 The project is designed with modularity and scalability in mind, making it easy to integrate additional features and functionalities in the future. The development process involved utilizing various Python libraries and tools to ensure robust and efficient data handling.
 
-## Usage
+## Installation
 
 1. **Clone the Repository**:
     ```bash
@@ -44,6 +41,8 @@ The project is designed with modularity and scalability in mind, making it easy 
     ```bash
     pip install -r requirements.txt
     ```
+
+## Usage
 
 3. **Run the Streamlit Application**:
     ```bash
@@ -84,7 +83,6 @@ This Python module connects to an SQLite database, retrieves data from a specifi
 
 This Module `visualize.py` fetches and visualizes time series data from an SQLite database using Plotly. It includes functions for converting timestamps, querying data, and plotting it in a line chart. Below are example plots for `final_weight` and `temperature` data, demonstrating the script's capability to generate insightful visualizations from the database.
 
-
 ### Final Weight Plot
 ![Final Weight Plot](images/Plot_Final_Weight.jpg)
 *Final weight data visualization.*
@@ -92,7 +90,6 @@ This Module `visualize.py` fetches and visualizes time series data from an SQLit
 ### Temperature Plot
 ![Temperature Plot](images/Plot_Temperature.jpg)
 *Temperature data visualization.*
-
 
 ## Streamlit Application
 The Streamlit application `user_interface.py` provides an interface to visualize time series data from an SQLite database. Users can select data types and time ranges to view data in tabular and line chart formats. The application includes error handling for invalid date ranges and uses a loading spinner to simulate data fetching delays.
@@ -106,4 +103,6 @@ The Streamlit application `user_interface.py` provides an interface to visualize
 - **Error Handling**: Provides error messages for invalid date ranges and when no data is found.
 - **Loading Spinner**: Displays a spinner while data is being fetched.
 
+## License
 
+This project is licensed under the terms of the [LICENSE.md](LICENSE.md) file.
