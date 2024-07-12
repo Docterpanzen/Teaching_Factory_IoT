@@ -35,18 +35,21 @@ The project is designed with modularity and scalability in mind, making it easy 
 
 1. Clone the repository:
    bash
+   ```
    git clone https://github.com/Docterpanzen/Teaching_Factory_IoT.git
-   
+   ```
 
 2. Navigate to the project directory:
     bash
+    ```
     cd Teaching_Factory_IoT
-    
+    ```
 
 3. Install the required packages:
     bash
+    ```
     pip install -r requirements.txt
-    
+    ```
 
 ### convert_time.py
 This Python module provides functions to convert between Unix timestamps and readable date strings. It includes functionality to handle user input for conversion and ensure the correct format for timestamps and readable dates.
