@@ -74,7 +74,7 @@ This script is used to visualize data.
 ![Final Weight Plot](images/Plot_Final_Weight.jpg)
 
 ### Temperature Plot
-![Temperature Plot](images/PlotTemperature.jpg)
+![Temperature Plot](images/Plot_Temperature.jpg)
 
 
 ## Streamlit Application
