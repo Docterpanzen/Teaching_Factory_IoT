@@ -1,4 +1,6 @@
 # Teaching Factory
+![](images/Teaching_Factory.png)
+
 
 ## Table of Contents
 - [Overview](#overview)
