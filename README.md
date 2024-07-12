@@ -12,6 +12,7 @@
   - [save_data_to_csv.py](#save_data_to_csvpy)
   - [user_interface.py](#user_interfacepy)
   - [visualize.py](#visualizepy)
+- [Configuration File](#configuration-file)
 - [Time Series Data Visualization](#time-series-data-visualization)
 - [Streamlit Application](#streamlit-application)
 - [License](#license)
@@ -26,6 +27,8 @@ The Teaching Factory project is an IoT (Internet of Things) initiative aimed at 
 - *Data Storage*: Scripts to save database tables into CSV files for further analysis.
 - *User Interface*: Command-line interface to facilitate user interactions.
 - *Data Visualization*: Scripts to plot and visualize data using Plotly.
+- *Configuration File*: A configuration file (`configuration.ini`) is used to manage the login and MQTT settings, including the MQTT broker address, port, user credentials, and topics to subscribe to.
+
 
 The project is designed with modularity and scalability in mind, making it easy to integrate additional features and functionalities in the future. The development process involved utilizing various Python libraries and tools to ensure robust and efficient data handling.
 
@@ -54,6 +57,7 @@ The project is designed with modularity and scalability in mind, making it easy 
     python visualize.py
     ```
 
+
 ### convert_time.py
 This Python module provides functions to convert between Unix timestamps and readable date strings. It includes functionality to handle user input for conversion and ensure the correct format for timestamps and readable dates.
 
@@ -74,10 +78,35 @@ This module connects to an MQTT broker, subscribes to various topics related to 
 This Python module connects to an SQLite database, extracts data from specified tables, and saves the data as CSV files in a specified directory. It uses sqlite3 for database interaction and pandas for data manipulation and ensures that the data is up-to-date before exporting.
 
 ### user_interface.py
-This script provides a command-line user interface.
+This script provides a graphical user interface.
 
 ### visualize.py
 This Python module connects to an SQLite database, retrieves data from a specified table within a given time range, and visualizes the data as a time series plot. It uses sqlite3 for database interaction, pandas for data manipulation, and plotly.express for plotting, with time conversion utilities provided by the convert_time module.
+
+## Configuration File
+The `configuration.ini` file is used to manage the settings for the MQTT connection and login credentials. This configuration file allows for easy adjustment of settings without changing the core code. Below is an example of what the configuration file looks like:
+
+### Example `configuration.ini`
+```ini
+[login]
+user = bobm
+password = letmein
+
+[mqtt]
+broker_address = 158.180.44.197
+port = 1883
+
+[topics]
+recipe = iot1/teaching_factory/recipe
+final_weight = iot1/teaching_factory/scale/final_weight
+drop_oscillation = iot1/teaching_factory/drop_oscillation
+ground_truth = iot1/teaching_factory/ground_truth
+dispenser_red = iot1/teaching_factory/dispenser_red
+dispenser_blue = iot1/teaching_factory/dispenser_blue
+dispenser_green = iot1/teaching_factory/dispenser_green
+temperature = iot1/teaching_factory/temperature
+```
+
 
 ## Time Series Data Visualization
 

@@ -1,39 +1,62 @@
+import configparser
 import paho.mqtt.client as mqtt
 import json
 import time
 import database_connection as dbc
 
-# ---- MQTT Settings ----
+# ---- Read configuration file ------
+config = configparser.ConfigParser()
+config.read("configuration.ini")
+
+broker_address = config['mqtt']['broker_address']
+port = config.getint('mqtt', 'port')
+user = config['login']['user']
+password = config['login']['password']
+
+topics = {
+    "recipe": config['topics']['recipe'],
+    "final_weight": config['topics']['final_weight'],
+    "drop_oscillation": config['topics']['drop_oscillation'],
+    "ground_truth": config['topics']['ground_truth'],
+    "dispenser_red": config['topics']['dispenser_red'],
+    "dispenser_blue": config['topics']['dispenser_blue'],
+    "dispenser_green": config['topics']['dispenser_green'],
+    "temperature": config['topics']['temperature']
+}
+
+print("\n")
+print("Configuration file read successfully")
+print(f"you are connected to {broker_address} on port {port} with user {user} and password {password}")
+print(f"we try to connect you now...")
+print("\n")
+
+# ---- MQTT Settings ----------------
 connected = False
 client = mqtt.Client()
-broker_address = "158.180.44.197"
-port = 1883
-user = "bobm"
-password = "letmein"
-client.username_pw_set(username=user, password=password)
-# ----------------------------
 
-def on_connect(client, userdata, flags, rc, properties=None):
+client.username_pw_set(username=user, password=password)
+
+#-----------------------------------
+
+def on_connect(client, userdata, flags, rc):
     if rc == 0:
-        client.subscribe("iot1/teaching_factory/recipe")
-        client.subscribe("iot1/teaching_factory/scale/final_weight")
-        client.subscribe("iot1/teaching_factory/drop_oscillation")
-        client.subscribe("iot1/teaching_factory/ground_truth")
-        client.subscribe("iot1/teaching_factory/dispenser_red")
-        client.subscribe("iot1/teaching_factory/dispenser_blue")
-        client.subscribe("iot1/teaching_factory/dispenser_green")
-        client.subscribe("iot1/teaching_factory/temperature")
+        for topic in topics.values():
+            client.subscribe(topic)
         print("Connected to broker")
+        print("\n\n")
+
         global connected
         connected = True
     else:
         print("Connection failed")
+        print("\n\n")
+
 
 def on_message(client, userdata, msg):
     try:
         received_message = json.loads(msg.payload.decode("utf-8"))
 
-        if msg.topic == "iot1/teaching_factory/recipe":
+        if msg.topic == topics["recipe"]:
             recipe_data = (
                 received_message["id"],
                 received_message["recipe"],
@@ -45,7 +68,7 @@ def on_message(client, userdata, msg):
             dbc.save_recipe(recipe_data)
             print("Recipe data saved to database")
 
-        elif msg.topic == "iot1/teaching_factory/scale/final_weight":
+        elif msg.topic == topics["final_weight"]:
             final_weight_data = (
                 received_message["bottle"],
                 received_message["time"],
@@ -54,7 +77,7 @@ def on_message(client, userdata, msg):
             dbc.save_final_weight(final_weight_data)
             print("Final weight data saved to database")
 
-        elif msg.topic == "iot1/teaching_factory/drop_oscillation":
+        elif msg.topic == topics["drop_oscillation"]:
             drop_oscillation_data = (
                 received_message["bottle"],
                 json.dumps(received_message["drop_oscillation"])
@@ -62,7 +85,7 @@ def on_message(client, userdata, msg):
             dbc.save_drop_oscillation(drop_oscillation_data)
             print("Drop oscillation data saved to database")
 
-        elif msg.topic == "iot1/teaching_factory/ground_truth":
+        elif msg.topic == topics["ground_truth"]:
             ground_truth_data = (
                 received_message["bottle"],
                 received_message["is_cracked"]
@@ -70,7 +93,7 @@ def on_message(client, userdata, msg):
             dbc.save_ground_truth(ground_truth_data)
             print("Ground truth data saved to database")
 
-        elif msg.topic == "iot1/teaching_factory/dispenser_red":
+        elif msg.topic == topics["dispenser_red"]:
             dispenser_red_data = (
                 received_message["dispenser"],
                 received_message["bottle"],
@@ -82,7 +105,7 @@ def on_message(client, userdata, msg):
             dbc.save_dispenser_red(dispenser_red_data)
             print("Dispenser red data saved to database")
 
-        elif msg.topic == "iot1/teaching_factory/dispenser_blue":
+        elif msg.topic == topics["dispenser_blue"]:
             dispenser_blue_data = (
                 received_message["dispenser"],
                 received_message["bottle"],
@@ -94,7 +117,7 @@ def on_message(client, userdata, msg):
             dbc.save_dispenser_blue(dispenser_blue_data)
             print("Dispenser blue data saved to database")
 
-        elif msg.topic == "iot1/teaching_factory/dispenser_green":
+        elif msg.topic == topics["dispenser_green"]:
             dispenser_green_data = (
                 received_message["dispenser"],
                 received_message["bottle"],
@@ -106,7 +129,7 @@ def on_message(client, userdata, msg):
             dbc.save_dispenser_green(dispenser_green_data)
             print("Dispenser green data saved to database")
 
-        elif msg.topic == "iot1/teaching_factory/temperature":
+        elif msg.topic == topics["temperature"]:
             temperature_data = (
                 received_message["dispenser"],
                 received_message["time"],
