@@ -73,7 +73,7 @@ This Python module creates an SQLite database with the necessary tables for the 
 This Python module manages saving various types of data to an SQLite database. It defines functions to insert data into different tables including recipes, final weight, drop oscillation, ground truth, and dispenser events for red, blue, and green colors, as well as temperature data.
 
 ### mqtt_subscribe.py
-This module connects to an MQTT broker, subscribes to various topics related to the teaching factory, and processes the received data to save it into an SQLite database. It utilizes `paho.mqtt.client` for MQTT communication, `json` for parsing the received messages, and a custom `database_connection` module for database operations. The module handles data related to recipes, final weights, drop oscillations, ground truth, dispenser events (for red, blue, and green colors), and temperature.
+This module connects to an MQTT broker, subscribes to various topics related to the teaching factory, and processes the received data to save it into an SQLite database. It utilizes `paho.mqtt.client` for MQTT communication, `json` for parsing the received messages, and a custom `database_connection` module for database operations. The module handles data related to recipes, final weights, drop oscillations, ground truth, dispenser events (for red, blue, and green colors), and temperature. The error management system ensures robust operation by handling connection failures and data parsing errors gracefully, implementing a reconnection mechanism, and providing clear logging messages to facilitate debugging and maintenance.
 
 #### Functions:
 - `on_connect(client, userdata, flags, rc, properties=None)`: Connects to the MQTT broker and subscribes to the specified topics.

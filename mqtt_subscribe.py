@@ -2,6 +2,7 @@ import configparser
 import paho.mqtt.client as mqtt
 import json
 import time
+import requests
 import database_connection as dbc
 
 # ---- Read configuration file ------
@@ -32,11 +33,6 @@ print("\n")
 
 # ---- MQTT Settings ----------------
 connected = False
-client = mqtt.Client()
-
-client.username_pw_set(username=user, password=password)
-
-#-----------------------------------
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
@@ -51,6 +47,12 @@ def on_connect(client, userdata, flags, rc):
         print("Connection failed")
         print("\n\n")
 
+def on_disconnect(client, userdata, rc):
+    global connected
+    connected = False
+    print("Disconnected from broker")
+    if rc != 0:
+        print("Unexpected disconnection. Will attempt to reconnect...")
 
 def on_message(client, userdata, msg):
     try:
@@ -141,9 +143,42 @@ def on_message(client, userdata, msg):
     except ValueError as e:
         print(f"Failed to parse message: {e}")
 
-client.on_connect = on_connect
-client.on_message = on_message
+def create_mqtt_client():
+    client = mqtt.Client()
+    client.username_pw_set(username=user, password=password)
+    client.on_connect = on_connect
+    client.on_disconnect = on_disconnect
+    client.on_message = on_message
+    return client
 
+def try_reconnect():
+    global client
+    while not connected:
+        try:
+            if is_internet_available():
+                try:
+                    print("Trying to reconnect...")
+                    client = create_mqtt_client()  # Re-create the client to ensure a fresh start
+                    client.connect(broker_address, port=port)
+                    client.loop_start()  # Restart the loop
+                    time.sleep(2)  # Give it some time to connect
+                except Exception as e:
+                    print(f"Reconnect failed: {e}. Retrying in 2 seconds...")
+            else:
+                print("Internet is not available. Checking again in 2 seconds...")
+            time.sleep(2)
+        except KeyboardInterrupt:
+            print("Interrupt received, stopping reconnect attempts.")
+            break
+
+def is_internet_available():
+    try:
+        response = requests.get('http://www.google.com', timeout=2)
+        return True if response.status_code == 200 else False
+    except requests.ConnectionError:
+        return False
+
+client = create_mqtt_client()
 client.connect(broker_address, port=port)
 client.loop_start()
 
@@ -151,8 +186,14 @@ client.loop_start()
 try:
     while True:
         time.sleep(1)
+        if not connected:
+            try_reconnect()
 except KeyboardInterrupt:
     print("Disconnecting...")
     client.disconnect()
     client.loop_stop()
     print("Disconnected.")
+finally:
+    client.loop_stop()
+    client.disconnect()
+    print("Disconnected in finally block.")
