@@ -160,6 +160,12 @@ The Streamlit application `user_interface.py` provides an interface to visualize
 | fill_level_grams_green           | 220.570877   |
 | fill_level_grams_blue            | 197.309463   |
 
+### Beste Features und Modellformel
+
+| Beste Features                      | Formel                                                                                     | MSE Training   | MSE Test        |
+|-------------------------------------|--------------------------------------------------------------------------------------------|----------------|-----------------|
+| ['vibration-index_green_vibration'] | y = 0.1115850021802185 * vibration-index_green_vibration + 17.40137857391989               | 18.7480610470633 | 16.05618559674557 |
+
 ### Prognose für das folgende Datenset `X.csv`
 
 Die Prognoseergebnisse wurden in der Datei `reg_123456-654321.csv` gespeichert.
