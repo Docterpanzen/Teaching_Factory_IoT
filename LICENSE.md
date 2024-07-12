@@ -1,6 +1,6 @@
-# MIT License
+MIT License
 
-Copyright (c) [2024]
+Copyright (c) [year] [fullname]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -11,12 +11,6 @@ furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
-
-**Authors:** 
-
-- [Oskar Klöpfer](https://github.com/Docterpanzen)
-- [Mats Pohle](https://github.com/mats2302)
-- [Lenard Wild](https://github.com/wildle)
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
