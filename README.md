@@ -13,6 +13,7 @@
   - [save_data_to_csv.py](#save_data_to_csvpy)
   - [user_interface.py](#user_interfacepy)
   - [visualize.py](#visualizepy)
+- [Time Series Data Visualization](#time-series-data-visualization)
 - [Streamlit Application](#streamlit-application)
 - [Contributing](#contributing)
 - [License](#license)
