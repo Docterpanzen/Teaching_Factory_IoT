@@ -1,12 +1,6 @@
 import datetime
 
 def convert_timestamp_to_readable(timestamp):
-    """
-    converts a Unix timestamp to a readable date string in the format YYYY-MM-DD HH:MM:SS.
-    
-    Returns:
-    str: Readable date string in the format YYYY-MM-DD HH:MM:SS
-    """
     try:
         # Convert the timestamp to an integer
         timestamp = int(timestamp)
@@ -22,12 +16,6 @@ def convert_timestamp_to_readable(timestamp):
         return f"Error converting timestamp: {e}"
 
 def convert_readable_to_timestamp(readable_date):
-    """
-    converts a readable date string to a Unix timestamp.
-    
-    Returns:
-    int: Unix timestamp
-    """
     try:
         # Convert the readable date string to a datetime object
         dt_object = datetime.datetime.strptime(readable_date, '%Y-%m-%d %H:%M:%S')

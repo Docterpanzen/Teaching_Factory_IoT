@@ -21,12 +21,13 @@
 The Teaching Factory project is an IoT (Internet of Things) initiative aimed at facilitating data processing, storage, and visualization for industrial applications. This project includes a series of Python scripts designed to handle various aspects of data management, including time conversion, database operations, MQTT communication, and data visualization. The project also features a planned Streamlit web application to provide an interactive interface for data visualization.
 
 ### Components:
-- *Time Conversion*: Scripts to convert time formats between Unix timestamps and readable date strings..
-- *Database Management*: Scripts to create database schemas, manage connections, and handle data insertion.
-- *MQTT Communication*: Scripts to subscribe to MQTT topics and process incoming messages.
-- *Data Storage*: Scripts to save data into CSV files for further analysis.
-- *User Interface*: Command-line interface for user interaction.
-- *Data Visualization*: Scripts to plot and visualize data using matplotlib.
+- *Time Conversion*: Scripts to convert time formats between Unix timestamps and readable date strings.
+- *Database Management*: Scripts to create database schemas and manage data insertion.
+- *MQTT Communication*: Scripts to subscribe to MQTT topics and save incoming messages to the database.
+- *Data Storage*: Scripts to save database tables into CSV files for further analysis.
+- *User Interface*: Command-line interface to facilitate user interactions.
+- *Data Visualization*: Scripts to plot and visualize data using Plotly.
+
 
 The project is designed with modularity and scalability in mind, making it easy to integrate additional features and functionalities in the future. The development process involved utilizing various Python libraries and tools to ensure robust and efficient data handling.
 
@@ -48,27 +49,29 @@ The project is designed with modularity and scalability in mind, making it easy 
     
 
 ### convert_time.py
-This script is used to convert time formats.
+This Python module provides functions to convert between Unix timestamps and readable date strings. It includes functionality to handle user input for conversion and ensure the correct format for timestamps and readable dates.
 
 ### database.py
-
-Creat the database with all the tables.
+This Python module creates an SQLite database with the necessary tables for the Teaching Factory project. It defines a function to set up the database schema, including tables for recipes, final weight, drop oscillation, ground truth, and dispenser events for red, blue, and green colors, as well as temperature data.
 
 ### database_connection.py
-This script manages the database connection, facilitating the saving of data received from MQTT into the database.
+This Python module manages saving various types of data to an SQLite database. It defines functions to insert data into different tables including recipes, final weight, drop oscillation, ground truth, and dispenser events for red, blue, and green colors, as well as temperature data.
 
 ### mqtt_subscribe.py
-This script subscribes to MQTT topics and processes incoming messages. It saves the Data with help from the functions in database_connection.py
+This module connects to an MQTT broker, subscribes to various topics related to the teaching factory, and processes the received data to save it into an SQLite database. It utilizes `paho.mqtt.client` for MQTT communication, `json` for parsing the received messages, and a custom `database_connection` module for database operations. The module handles data related to recipes, final weights, drop oscillations, ground truth, dispenser events (for red, blue, and green colors), and temperature.
+
+#### Functions:
+- `on_connect(client, userdata, flags, rc, properties=None)`: Connects to the MQTT broker and subscribes to the specified topics.
+- `on_message(client, userdata, msg)`: Processes the received messages and saves the data to the database using appropriate functions from the `database_connection` module.
 
 ### save_data_to_csv.py
-This script saves data from the Database to seperate CSV files and a combined_data CSV file.
+This Python module connects to an SQLite database, extracts data from specified tables, and saves the data as CSV files in a specified directory. It uses sqlite3 for database interaction and pandas for data manipulation and ensures that the data is up-to-date before exporting.
 
 ### user_interface.py
 This script provides a command-line user interface.
 
 ### visualize.py
-This script is used to visualize data.
-
+This Python module connects to an SQLite database, retrieves data from a specified table within a given time range, and visualizes the data as a time series plot. It uses sqlite3 for database interaction, pandas for data manipulation, and plotly.express for plotting, with time conversion utilities provided by the convert_time module.
 
 ## Plots
 
