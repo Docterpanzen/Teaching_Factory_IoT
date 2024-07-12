@@ -82,13 +82,18 @@ This script provides a command-line user interface.
 ### visualize.py
 This Python module connects to an SQLite database, retrieves data from a specified table within a given time range, and visualizes the data as a time series plot. It uses sqlite3 for database interaction, pandas for data manipulation, and plotly.express for plotting, with time conversion utilities provided by the convert_time module.
 
-## Plots
+## Time Series Data Visualization
+
+This script fetches and visualizes time series data from an SQLite database using Plotly. It includes functions for converting timestamps, querying data, and plotting it in a line chart. Below are example plots for `final_weight` and `temperature` data, demonstrating the script's capability to generate insightful visualizations from the database.
+
 
 ### Final Weight Plot
 ![Final Weight Plot](images/Plot_Final_Weight.jpg)
+*Final weight data visualization.*
 
 ### Temperature Plot
 ![Temperature Plot](images/Plot_Temperature.jpg)
+*Temperature data visualization.*
 
 
 ## Streamlit Application
