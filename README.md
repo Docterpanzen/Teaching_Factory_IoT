@@ -36,7 +36,7 @@ The project is designed with modularity and scalability in mind, making it easy 
 1. Clone the repository:
    bash
    ```
-   git clone https://github.com/Docterpanzen/Teaching_Factory_IoT.git
+   git clone https://github.com/Docterpanzen/Teaching_Factory_IoT
    ```
 
 2. Navigate to the project directory:
@@ -49,6 +49,12 @@ The project is designed with modularity and scalability in mind, making it easy 
     bash
     ```
     pip install -r requirements.txt
+    ```
+  
+4. Start the User Interface:
+    bash
+    ```
+    streamlit run user_interface.py
     ```
 
 ### convert_time.py

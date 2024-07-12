@@ -27,11 +27,27 @@ def convert_readable_to_timestamp(readable_date):
     except ValueError as e:
         return f"Error converting date: {e}"
 
+# Function to convert a timestamp to a readable time string	
+def convert_timestamp_to_readable_time(timestamp):
+    try:
+        # Convert the timestamp to an integer
+        timestamp = int(timestamp)
+        
+        # Convert the timestamp to a datetime object
+        dt_object = datetime.datetime.fromtimestamp(timestamp)
+        
+        # Format the datetime object into a readable time string
+        readable_time = dt_object.strftime('%H:%M:%S')
+        
+        return readable_time
+    except (ValueError, OverflowError) as e:
+        return f"Error converting timestamp: {e}"
+
 
 
 if __name__ == "__main__":
     try:
-        choice = input("Choose conversion type:\n1. Timestamp to Readable Date\n2. Readable Date to Timestamp\nEnter 1 or 2: ").strip()
+        choice = input("Choose conversion type:\n1. Timestamp to Readable Date\n2. Readable Date to Timestamp\n3. Timestamp to Readable Time\nEnter 1, 2 or 3: ").strip()
         
         if choice == '1':
             time = input("Enter timestamp: ").strip()
@@ -55,9 +71,25 @@ if __name__ == "__main__":
                 print("Unix timestamp:", timestamp)
             else:
                 print(timestamp)
+
+        elif choice == '3':
+            time = input("Enter timestamp: ").strip()
+            
+            # Check if the timestamp length is either 10 or 13 digits
+            if len(time) in {10, 13} and time.isdigit():
+                print("Timestamp entered:", time)
+                
+                # If timestamp is in milliseconds, convert to seconds
+                if len(time) == 13:
+                    time = int(time) // 1000
+                
+                print("Readable time:", convert_timestamp_to_readable_time(time))
+            else:
+                print("Invalid timestamp. Please enter a valid 10-digit or 13-digit timestamp.")
         
         else:
-            print("Invalid choice. Please enter 1 or 2.")
+            print("Invalid choice. Please enter 1, 2 or 3.")
+
     
     except ValueError:
         print("Invalid input. Please enter a valid choice, timestamp, or date.")
