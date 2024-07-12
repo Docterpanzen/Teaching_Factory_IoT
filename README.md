@@ -139,4 +139,4 @@ The Streamlit application `user_interface.py` provides an interface to visualize
 
 ## License
 
-This project is licensed under the terms of the [LICENSE.md](LICENSE.md) file.
+This project is licensed under the terms of the [LICENSE](LICENSE) file.
