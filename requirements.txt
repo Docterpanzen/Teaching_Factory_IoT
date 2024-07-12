@@ -20,6 +20,7 @@ packaging==24.1
 paho-mqtt==2.1.0
 pandas==2.2.2
 pillow==10.4.0
+plotly==5.22.0
 protobuf==5.27.2
 pyarrow==16.1.0
 pydeck==0.9.1
@@ -30,6 +31,7 @@ referencing==0.35.1
 requests==2.32.3
 rich==13.7.1
 rpds-py==0.19.0
+scipy==1.14.0
 six==1.16.0
 smmap==5.0.1
 streamlit==1.36.0
