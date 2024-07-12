@@ -37,22 +37,27 @@ The project is designed with modularity and scalability in mind, making it easy 
 1. **Clone the Repository**:
     ```bash
     git clone https://github.com/Docterpanzen/Teaching_Factory_IoT
+    ```
+
+2. **Change the directory**:
+    ```bash
     cd Teaching_Factory_IoT
     ```
 
-2. **Install Dependencies**:
+3. **Install Dependencies**:
     ```bash
     pip install -r requirements.txt
     ```
 
 ## Usage
+You can either run the Streamlit application to browse and analyze the data interactively or specify the data and time range you want to visualize and run the Visualization Module.
 
-3. **Run the Streamlit Application**:
+4. **Run the Streamlit Application**:
     ```bash
     streamlit run user_interface.py
     ```
 
-4. **Run the Visualization Module**:
+5. **Run the Visualization Module**:
     ```bash
     python visualize.py
     ```
