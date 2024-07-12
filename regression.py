@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
@@ -53,14 +54,15 @@ def vorhersage_finalgewicht(modell, zweiter_csv_dateipfad):
     zweite_daten_mit_vorhersagen['predicted_final_weight'] = predictions
     return zweite_daten_mit_vorhersagen
 
-def speichere_vorhersagen(daten_mit_vorhersagen, matrikelnummern):
+def speichere_vorhersagen(daten_mit_vorhersagen, matrikelnummern, output_directory):
     print('Speichere Vorhersagen')
-    dateiname = f"reg_{'-'.join(matrikelnummern)}.csv"
+    os.makedirs(output_directory, exist_ok=True)
+    dateiname = os.path.join(output_directory, f"reg_{'-'.join(matrikelnummern)}.csv")
     daten_mit_vorhersagen.to_csv(dateiname, index=False)
     print(f"Vorhersagen gespeichert in: {dateiname}")
     return dateiname
 
-def erstelle_bericht(daten, mse_df, modell, matrikelnummern):
+def erstelle_bericht(daten, mse_df, modell, matrikelnummern, output_directory):
     # Beste Features basierend auf MSE
     beste_features = mse_df.sort_values(by='MSE').head(1)['Feature'].tolist()
     
@@ -83,15 +85,18 @@ def erstelle_bericht(daten, mse_df, modell, matrikelnummern):
     }
     
     # Speichern des Berichts als CSV
+    os.makedirs(output_directory, exist_ok=True)
     bericht_df = pd.DataFrame([bericht])
-    bericht_df.to_csv(f"bericht_{'-'.join(matrikelnummern)}.csv", index=False)
+    bericht_dateiname = os.path.join(output_directory, f"bericht_{'-'.join(matrikelnummern)}.csv")
+    bericht_df.to_csv(bericht_dateiname, index=False)
     
-    print(f"Bericht gespeichert in: bericht_{'-'.join(matrikelnummern)}.csv")
+    print(f"Bericht gespeichert in: {bericht_dateiname}")
 
 # Verwendung der Funktionen
 csv_dateipfad = 'data_csv/cleaned_combined_data.csv'    # Pfad zum Trainingsdatensatz
-zweiter_csv_dateipfad = 'data_csv/X.csv'        # Pfad zum Vorhersagedatensatz
-matrikelnummern = ['123456', '654321']          # Matrikelnummern der Teilnehmer
+zweiter_csv_dateipfad = 'data_csv/X.csv'                # Pfad zum Vorhersagedatensatz
+matrikelnummern = ['123456', '654321']                  # Matrikelnummern der Teilnehmer
+output_directory = 'regression_data'                    # Ausgabeverzeichnis
 
 # 1. Daten laden
 daten = lade_daten(csv_dateipfad)
@@ -111,7 +116,7 @@ print(mse_df)
 zweite_daten_mit_vorhersagen = vorhersage_finalgewicht(modell, zweiter_csv_dateipfad)
 
 # 6. Vorhersagen speichern
-dateiname = speichere_vorhersagen(zweite_daten_mit_vorhersagen, matrikelnummern)
+dateiname = speichere_vorhersagen(zweite_daten_mit_vorhersagen, matrikelnummern, output_directory)
 
 # 7. Bericht erstellen
-erstelle_bericht(daten, mse_df, modell, matrikelnummern)
+erstelle_bericht(daten, mse_df, modell, matrikelnummern, output_directory)

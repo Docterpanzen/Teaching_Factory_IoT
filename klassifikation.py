@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -50,6 +51,7 @@ def erstelle_klassifikationsmodell(daten, ergebnis_csv_pfad, confusion_matrix_pf
     ergebnis_df = pd.DataFrame(ergebnisse)
     
     # Ergebnisse speichern
+    os.makedirs(os.path.dirname(ergebnis_csv_pfad), exist_ok=True)
     ergebnis_df.to_csv(ergebnis_csv_pfad, index=False)
     print(f'Ergebnisse gespeichert in: {ergebnis_csv_pfad}')
     
@@ -63,8 +65,9 @@ def erstelle_klassifikationsmodell(daten, ergebnis_csv_pfad, confusion_matrix_pf
 
 # Pfad zu den Daten
 csv_dateipfad = 'data_csv/prepared_drop_oscillation.csv'
-ergebnis_csv_pfad = 'klassifikations_ergebnisse.csv'
-confusion_matrix_pfad = 'confusion_matrices.txt'
+output_directory = 'classification_data'
+ergebnis_csv_pfad = os.path.join(output_directory, 'klassifikations_ergebnisse.csv')
+confusion_matrix_pfad = os.path.join(output_directory, 'confusion_matrices.txt')
 
 # 1. Daten laden
 daten = lade_drop_vibration_daten(csv_dateipfad)

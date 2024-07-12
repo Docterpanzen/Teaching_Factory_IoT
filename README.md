@@ -142,6 +142,11 @@ The Streamlit application `user_interface.py` provides an interface to visualize
 
 ## Regressionsmodell für Endgewicht
 
+Das Regressionsmodell erzeugt zwei Dateien:
+
+1. **regression_data/reg_123456-654321.csv**: Diese Datei enthält die Vorhersagen des Regressionsmodells für das Datenset "data_csv/X.csv". Die Datei wird im Unterordner "regression_data" gespeichert.
+2. **regression_data/bericht_123456-654321.csv**: Diese Datei enthält den Bericht mit den besten Features, der Modellformel und den MSE-Werten für Training und Test. Auch diese Datei wird im Unterordner "regression_data" gespeichert.
+
 ### Ergebnisse der Regression
 
 | Genutzte Spalten                  | Modell-Typ | MSE-Wert (Training) | MSE-Wert (Test) |
@@ -166,13 +171,14 @@ The Streamlit application `user_interface.py` provides an interface to visualize
 |-------------------------------------|--------------------------------------------------------------------------------------------|----------------|-----------------|
 | ['vibration-index_green_vibration'] | y = 0.1115850021802185 * vibration-index_green_vibration + 17.40137857391989               | 18.7480610470633 | 16.05618559674557 |
 
-### Prognose für das folgende Datenset `X.csv`
-
-Die Prognoseergebnisse wurden in der Datei `reg_123456-654321.csv` gespeichert.
-Der Bericht wurde in der Datei `bericht_123456-654321.csv` gespeichert.
-
 
 ## Klassifikationsmodell für defekte Flaschen
+
+Das Klassifikationsmodell erzeugt ebenfalls zwei Dateien:
+
+1. **classification_data/klassifikations_ergebnisse.csv**: Diese Datei enthält die Ergebnisse der Klassifikation, einschließlich der genutzten Features, Modell-Typen und F1-Scores für Training und Test. Diese Datei wird im Unterordner "classification_data" gespeichert.
+2. **classification_data/confusion_matrices.txt**: Diese Datei enthält die Confusion Matrices für die verschiedenen Modelle. Sie wird ebenfalls im Unterordner "classification_data" gespeichert.
+
 
 ### Ergebnisse der Klassifikation
 
