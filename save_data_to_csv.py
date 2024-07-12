@@ -20,6 +20,8 @@ def save_table_to_csv(cursor, table_name, directory):
     csv_path = os.path.join(directory, f"{table_name}.csv")
     df.to_csv(csv_path, index=False)
 
+    return df
+
 def export_db_to_csv(db_file_path, output_directory):
     # Connect to the database
     conn = sqlite3.connect(db_file_path)
@@ -37,10 +39,17 @@ def export_db_to_csv(db_file_path, output_directory):
         'temperature'
     ]
 
-    # Export each table to CSV
+    combined_df = pd.DataFrame()
+
+    # Export each table to CSV and combine into one DataFrame
     for table in tables:
-        save_table_to_csv(cursor, table, output_directory)
-    
+        df = save_table_to_csv(cursor, table, output_directory)
+        df['source_table'] = table  # Add a column for the source table
+        combined_df = pd.concat([combined_df, df], ignore_index=True)
+
+    # Save the combined DataFrame to a single CSV file
+    combined_csv_path = os.path.join(output_directory, "combined_data.csv")
+    combined_df.to_csv(combined_csv_path, index=False)
 
     # Close the connection
     conn.close()
@@ -48,7 +57,6 @@ def export_db_to_csv(db_file_path, output_directory):
 # Specify the database file path and output directory
 db_file_path = 'teaching_factory.db'  # replace with your actual database file path
 output_directory = 'data_csv/'
-
 
 if __name__ == '__main__':
     try:
