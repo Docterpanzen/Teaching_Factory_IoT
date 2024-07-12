@@ -36,8 +36,8 @@ The project is designed with modularity and scalability in mind, making it easy 
 
 1. **Clone the Repository**:
     ```bash
-    git clone <repository-url>
-    cd <repository-directory>
+    git clone https://github.com/Docterpanzen/Teaching_Factory_IoT
+    cd Teaching_Factory_IoT
     ```
 
 2. **Install Dependencies**:
