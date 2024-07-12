@@ -34,26 +34,26 @@ The project is designed with modularity and scalability in mind, making it easy 
 ## Usage
 
 1. Clone the repository:
-   bash
-   ```
+   
+   ```bash
    git clone https://github.com/Docterpanzen/Teaching_Factory_IoT
    ```
 
 2. Navigate to the project directory:
-    bash
-    ```
+    
+    ```bash
     cd Teaching_Factory_IoT
     ```
 
 3. Install the required packages:
-    bash
-    ```
+    
+    ```bash
     pip install -r requirements.txt
     ```
   
 4. Start the User Interface:
-    bash
-    ```
+    
+    ```bash
     streamlit run user_interface.py
     ```
 
