@@ -38,8 +38,8 @@ if __name__ == '__main__':
     table_name = 'temperature'            # Replace with the table you want to visualize
     time_column = 'time'                  # Replace with the time column in the table
     value_column = 'temperature_C'        # Replace with the value column you want to plot
-    start_time = '2024-07-11 23:00:00'    # Replace with the start time (readable date)
-    end_time = '2024-07-11 23:20:00'      # Replace with the end time (readable date)
-    # keep the time between 2024-07-11 22:45:00 and 23:15:00
+    start_time = '2024-07-11 22:41:00'    # Replace with the start time (readable date)
+    end_time = '2024-07-12 00:15:00'      # Replace with the end time (readable date)
+    # keep the time between 2024-07-11 22:41:00 and 2024-07-12 00:15:00
 
     main(db_file_path, table_name, time_column, value_column, start_time, end_time)
