@@ -3,6 +3,7 @@ import sqlite3
 import pandas as pd
 from datetime import datetime
 import convert_time as ct
+import time
 
 # Function to connect to the database and return the connection and cursor
 def connect_to_database():
@@ -91,7 +92,15 @@ def display_temperature_data(data, date):
 
 
 def main():
-    st.title("Teaching Factory Dashboard")
+    col1, col2 = st.columns([3, 2])  # Column 1 is twice as wide as Column 2
+
+    with col1:
+        st.title("Teaching Factory Dashboard")
+
+    with col2:
+        st.image("images/Teaching_Factory.png")
+
+    st.divider()
 
     # Sidebar for date selection
     with st.sidebar:
@@ -105,10 +114,14 @@ def main():
             end_datetime = pd.to_datetime(str(date) + ' ' + str(end_time))
             submitted_button = st.form_submit_button("Laden")
             if submitted_button:
+                
                 if start_datetime >= end_datetime:
                     st.error("Endzeit muss nach der Startzeit liegen.")
                 else:
-                    st.success("Daten erfolgreich geladen")
+                    with st.spinner("Lade Daten..."):
+                        time.sleep(2)
+                        st.success("Daten erfolgreich geladen")
+
 
     if submitted_button and start_datetime < end_datetime:
         if data_type == "Dispenser Daten":

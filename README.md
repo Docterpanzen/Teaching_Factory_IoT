@@ -92,10 +92,15 @@ This Python module connects to an SQLite database, retrieves data from a specifi
 
 
 ## Streamlit Application
-A Streamlit application is planned to visualize the data in a web interface. This feature is currently under development and will provide an interactive and user-friendly way to explore and analyze the collected data.
+This Streamlit application provides an interface to visualize time series data from an SQLite database. Users can select data types and time ranges to view data in tabular and line chart formats. The application includes error handling for invalid date ranges and uses a loading spinner to simulate data fetching delays.
 
-## Contributing
-Contributions are welcome! Please read the [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on contributing to this project.
+### Features
 
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+- **Date and Time Selection**: Users can select a specific date and time range to fetch data.
+- **Data Type Selection**: Users can choose between different data types: Dispenser Data, Final Weight Data, and Temperature Data.
+- **Data Fetching**: Fetches data from an SQLite database based on user selection.
+- **Data Visualization**: Displays data in a table format and as a line chart using Plotly.
+- **Error Handling**: Provides error messages for invalid date ranges and when no data is found.
+- **Loading Spinner**: Displays a spinner while data is being fetched.
+
+
