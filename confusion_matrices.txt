@@ -1,0 +1,8 @@
+Confusion Matrix for kNN:
+[[314   0]
+ [ 25   5]]
+
+Confusion Matrix for Log. Regression:
+[[314   0]
+ [ 30   0]]
+

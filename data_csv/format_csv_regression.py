@@ -1,8 +1,10 @@
 import pandas as pd
 import os
 
-# Dateipfade
+# Directory containing the CSV files
 data_directory = 'data_csv/'
+
+# Dateipfade
 dispenser_blue_path = os.path.join(data_directory, 'dispenser_blue.csv')
 dispenser_green_path = os.path.join(data_directory, 'dispenser_green.csv')
 dispenser_red_path = os.path.join(data_directory, 'dispenser_red.csv')
@@ -11,6 +13,25 @@ final_weight_path = os.path.join(data_directory, 'final_weight.csv')
 ground_truth_path = os.path.join(data_directory, 'ground_truth.csv')
 recipes_path = os.path.join(data_directory, 'recipes.csv')
 temperature_path = os.path.join(data_directory, 'temperature.csv')
+
+# Liste der Dateipfade
+file_paths = [
+    dispenser_blue_path,
+    dispenser_green_path,
+    dispenser_red_path,
+    drop_oscillation_path,
+    final_weight_path,
+    ground_truth_path,
+    recipes_path,
+    temperature_path
+]
+
+# Überprüfen Sie, ob die Dateien existieren
+for file_path in file_paths:
+    if not os.path.exists(file_path):
+        print(f"Fehler: Datei '{file_path}' nicht gefunden.")
+    else:
+        print(f"Datei '{file_path}' gefunden.")
 
 # CSV-Dateien einlesen
 dispenser_blue = pd.read_csv(dispenser_blue_path)
@@ -63,6 +84,6 @@ combined_data = combined_data.merge(fill_level_blue, on='id', how='left')
 combined_data = combined_data.dropna()
 
 # Speichern der bereinigten Daten
-cleaned_data_path = os.path.join(data_directory, 'cleaned_combined_data.csv')
+cleaned_data_path = 'cleaned_combined_data.csv'
 combined_data.to_csv(cleaned_data_path, index=False)
 print(f"Bereinigte Daten gespeichert in: {cleaned_data_path}")

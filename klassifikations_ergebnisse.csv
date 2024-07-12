@@ -1,0 +1,3 @@
+Genutzte Features,Modell-Typ,F1-Score (Training),F1-Score (Test)
+"['mean_drop', 'std_drop', 'max_drop', 'min_drop']",kNN,0.5234899328859061,0.2857142857142857
+"['mean_drop', 'std_drop', 'max_drop', 'min_drop']",Log. Regression,0.0,0.0

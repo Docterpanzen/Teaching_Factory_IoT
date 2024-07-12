@@ -15,6 +15,8 @@
 - [Configuration File](#configuration-file)
 - [Time Series Data Visualization](#time-series-data-visualization)
 - [Streamlit Application](#streamlit-application)
+- [Regressionsmodell für Endgewicht](#regressionsmodell-für-endgewicht)
+- [Klassifikationsmodell für defekte Flaschen](#klassifikationsmodell-für-defekte-flaschen)
 - [License](#license)
 
 ## Overview
@@ -136,6 +138,59 @@ The Streamlit application `user_interface.py` provides an interface to visualize
 - **Data Visualization**: Displays data in a table format and as a line chart using Plotly.
 - **Error Handling**: Provides error messages for invalid date ranges and when no data is found.
 - **Loading Spinner**: Displays a spinner while data is being fetched.
+
+
+## Regressionsmodell für Endgewicht
+
+### Ergebnisse der Regression
+
+| Genutzte Spalten                  | Modell-Typ | MSE-Wert (Training) | MSE-Wert (Test) |
+|-----------------------------------|------------|---------------------|-----------------|
+| ['vibration-index_blue']          | Linear     | 18.7480610470633    | 16.05618559674557 |
+
+### Feature Importance
+
+| Feature                          | MSE          |
+|----------------------------------|--------------|
+| temperature_mean_C               | 212.537784   |
+| vibration-index_red_vibration    | 136.323459   |
+| vibration-index_green_vibration  | 97.971186    |
+| vibration-index_blue_vibration   | 127.433203   |
+| fill_level_grams_red             | 224.035351   |
+| fill_level_grams_green           | 220.570877   |
+| fill_level_grams_blue            | 197.309463   |
+
+### Prognose für das folgende Datenset `X.csv`
+
+Die Prognoseergebnisse wurden in der Datei `reg_123456-654321.csv` gespeichert.
+Der Bericht wurde in der Datei `bericht_123456-654321.csv` gespeichert.
+
+
+## Klassifikationsmodell für defekte Flaschen
+
+### Ergebnisse der Klassifikation
+
+| Genutzte Features                             | Modell-Typ      | F1-Score (Training) | F1-Score (Test) |
+|-----------------------------------------------|-----------------|---------------------|-----------------|
+| ['mean_drop', 'std_drop', 'max_drop', 'min_drop'] | kNN             | 0.5234899328859061  | 0.2857142857142857 |
+| ['mean_drop', 'std_drop', 'max_drop', 'min_drop'] | Log. Regression | 0.0                 | 0.0               |
+
+### Confusion Matrices
+
+**kNN**:
+
+|                      | Predicted Negative | Predicted Positive |
+|----------------------|--------------------|--------------------|
+| **Actual Negative**  | 314                | 0                  |
+| **Actual Positive**  | 25                 | 5                  |
+
+**Log. Regression**:
+
+|                      | Predicted Negative | Predicted Positive |
+|----------------------|--------------------|--------------------|
+| **Actual Negative**  | 314                | 0                  |
+| **Actual Positive**  | 30                 | 0                  |
+
 
 ## License
 
