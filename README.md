@@ -144,8 +144,8 @@ The Streamlit application `user_interface.py` provides an interface to visualize
 
 Das Regressionsmodell erzeugt zwei Dateien:
 
-1. **regression_data/reg_123456-654321.csv**: Diese Datei enthält die Vorhersagen des Regressionsmodells für das Datenset "data_csv/X.csv". Die Datei wird im Unterordner "regression_data" gespeichert.
-2. **regression_data/bericht_123456-654321.csv**: Diese Datei enthält den Bericht mit den besten Features, der Modellformel und den MSE-Werten für Training und Test. Auch diese Datei wird im Unterordner "regression_data" gespeichert.
+1. **regression_data/reg_52216053-52216046-52216069.csv**: Diese Datei enthält die Vorhersagen des Regressionsmodells für das Datenset "data_csv/X.csv". Die Datei wird im Unterordner "regression_data" gespeichert.
+2. **regression_data/bericht_52216053-52216046-52216069.csv**: Diese Datei enthält den Bericht mit den besten Features, der Modellformel und den MSE-Werten für Training und Test. Auch diese Datei wird im Unterordner "regression_data" gespeichert.
 
 ### Ergebnisse der Regression
 

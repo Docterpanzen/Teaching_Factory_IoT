@@ -95,7 +95,7 @@ def erstelle_bericht(daten, mse_df, modell, matrikelnummern, output_directory):
 # Verwendung der Funktionen
 csv_dateipfad = 'data_csv/cleaned_combined_data.csv'    # Pfad zum Trainingsdatensatz
 zweiter_csv_dateipfad = 'data_csv/X.csv'                # Pfad zum Vorhersagedatensatz
-matrikelnummern = ['123456', '654321']                  # Matrikelnummern der Teilnehmer
+matrikelnummern = ['52216053', '52216046', '52216069']  # Matrikelnummern 
 output_directory = 'regression_data'                    # Ausgabeverzeichnis
 
 # 1. Daten laden
