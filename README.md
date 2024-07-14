@@ -27,7 +27,7 @@ The Teaching Factory project is an IoT (Internet of Things) initiative aimed at 
 - *Database Management*: Scripts to create database schemas and manage data insertion.
 - *MQTT Communication*: Scripts to subscribe to MQTT topics and save incoming messages to the database.
 - *Data Storage*: Scripts to save database tables into CSV files for further analysis.
-- *User Interface*: Command-line interface to facilitate user interactions.
+- *User Interface*: Graphical User Interface to facilitate user interactions.
 - *Data Visualization*: Scripts to plot and visualize data using Plotly.
 - *Configuration File*: A configuration file (`configuration.ini`) is used to manage the login and MQTT settings, including the MQTT broker address, port, user credentials, and topics to subscribe to.
 
