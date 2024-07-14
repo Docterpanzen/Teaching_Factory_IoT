@@ -140,14 +140,14 @@ The Streamlit application `user_interface.py` provides an interface to visualize
 - **Loading Spinner**: Displays a spinner while data is being fetched.
 
 
-## Regressionsmodell für Endgewicht
+## Regression Model for Final Weight
 
-Das Regressionsmodell erzeugt zwei Dateien:
+The regression model generates two files:
 
-1. **regression_data/reg_52216053-52216046-52216069.csv**: Diese Datei enthält die Vorhersagen des Regressionsmodells für das Datenset "data_csv/X.csv". Die Datei wird im Unterordner "regression_data" gespeichert.
-2. **regression_data/bericht_52216053-52216046-52216069.csv**: Diese Datei enthält den Bericht mit den besten Features, der Modellformel und den MSE-Werten für Training und Test. Auch diese Datei wird im Unterordner "regression_data" gespeichert.
+1. **regression_data/reg_52216053-52216046-52216069.csv**: This file contains the predictions of the regression model for the dataset "data_csv/X.csv". The file is stored in the "regression_data" subfolder.
+2. **regression_data/bericht_52216053-52216046-52216069.csv**: This file contains the report with the best features, the model formula, and the MSE values for training and testing. This file is also stored in the "regression_data" subfolder.
 
-### Ergebnisse der Regression
+### Regression Results
 
 | Genutzte Spalten                  | Modell-Typ | MSE-Wert (Training) | MSE-Wert (Test) |
 |-----------------------------------|------------|---------------------|-----------------|
@@ -165,24 +165,23 @@ Das Regressionsmodell erzeugt zwei Dateien:
 | fill_level_grams_green           | 220.570877   |
 | fill_level_grams_blue            | 197.309463   |
 
-### Beste Features und Modellformel
+### Best Features and Model Formula
 
-| Beste Features                      | Formel                                                                                     | MSE Training   | MSE Test        |
+| best features                       | formula                                                                                    | MSE Training   | MSE Test        |
 |-------------------------------------|--------------------------------------------------------------------------------------------|----------------|-----------------|
 | ['vibration-index_green_vibration'] | y = 0.1115850021802185 * vibration-index_green_vibration + 17.40137857391989               | 18.7480610470633 | 16.05618559674557 |
 
 
-## Klassifikationsmodell für defekte Flaschen
+## Classification Model for Defective Bottles
 
-Das Klassifikationsmodell erzeugt ebenfalls zwei Dateien:
+The classification model also generates two files:
 
-1. **classification_data/klassifikations_ergebnisse.csv**: Diese Datei enthält die Ergebnisse der Klassifikation, einschließlich der genutzten Features, Modell-Typen und F1-Scores für Training und Test. Diese Datei wird im Unterordner "classification_data" gespeichert.
-2. **classification_data/confusion_matrices.txt**: Diese Datei enthält die Confusion Matrices für die verschiedenen Modelle. Sie wird ebenfalls im Unterordner "classification_data" gespeichert.
+1. **classification_data/klassifikations_ergebnisse.csv**: This file contains the classification results, including the features used, model types, and F1-scores for training and testing. This file is stored in the "classification_data" subfolder.
+2. **classification_data/confusion_matrices.txt**: This file contains the confusion matrices for the various models. It is also stored in the "classification_data" subfolder.
 
+### Classification Results
 
-### Ergebnisse der Klassifikation
-
-| Genutzte Features                             | Modell-Typ      | F1-Score (Training) | F1-Score (Test) |
+| used features                             | modell-type      | F1-Score (Training) | F1-Score (Test) |
 |-----------------------------------------------|-----------------|---------------------|-----------------|
 | ['mean_drop', 'std_drop', 'max_drop', 'min_drop'] | kNN             | 0.5234899328859061  | 0.2857142857142857 |
 | ['mean_drop', 'std_drop', 'max_drop', 'min_drop'] | Log. Regression | 0.0                 | 0.0               |
